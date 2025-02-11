@@ -54,13 +54,10 @@ phats
 # as the number of samples grows large, the sample distribution of p-hat can be 
 # approximated by a Normal distribution.
 
-# Q: How do you think the shape of the sampling distribution changes with 
-# different simulation sizes? 
 # Q: What determines where the center or mean of the sampling distribution will
 # fall?  
 K <- 1000  # Simulation size
 simulation_100 <- replicate(K, sample_get_phat_fn(population, n=100))
-hist(simulation_100, xlim=range(0, 1))
 
 ggplot(data=data.frame(simulation_100), aes(x=simulation_100)) +
   geom_vline(aes(xintercept=pop_proportion), color="red") +
@@ -69,17 +66,26 @@ ggplot(data=data.frame(simulation_100), aes(x=simulation_100)) +
        x="Sample proportion", y="Frequency") +
   xlim(c(0,1))
 
+# Q: Why have we set the xlimits of the graph to be (0,1)?
 # Q: Where do the parameters for the Normal distribution approximating p-hat 
 # come from?
-# TODO: fix
-#SE_phat100 <- sqrt((pop_proportion*(1-pop_proportion))/100)
-#normal_dist <- rnorm(1000, mean=pop_proportion, sd=SE_phat100)
 
-#ggplot(data=data.frame(c(simulation_100, normal_dist)), aes(x=simulation_100)) +
-#  geom_density(lwd=1, color=4,fill=4, alpha=0.25)
+# Sample from a Normal distribution with computed parameters:
+SE_phat100 <- sqrt((pop_proportion*(1-pop_proportion))/100)
+normal_dist <- rnorm(1000, mean=pop_proportion, sd=SE_phat100)
 
-#lines(data.frame(normal_dist), color=2)
+# For plotting ease, create a new dataframe with the simulation values and the
+# sampled normal values, plus a categorical variable distinguishing them
+values <- c(simulation_100, normal_dist)
+source <- c(rep("Simulation", 1000), rep("Normal distribution", 1000)) 
+comparison <- data.frame(values, source)
+
+# Plot the densities:
+ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
+  geom_density(lwd=1, alpha=0.25) +
+  xlim(c(0,1))
 # TODO: move to helper function and just grab the graphs in this file?
+
 
 # 5. ---- Repeat the experiment ---- 
 # Now construct datasets from samples of different sizes and repeat the above. 
