@@ -10,9 +10,9 @@ pop_size <- 250000
 pop_proportion <- 0.88
 population <- create_population(N=pop_size, p=pop_proportion)
 head(population)
-tail(population)
 sum(population == "support") / pop_size  # Should be 0.88
-# TODO: chart to visualize population?
+ggplot(data=data.frame(population), aes(x=population)) +
+  geom_bar(color=4, fill=4)
 
 
 # ---- 2. Sampling from the population ----
@@ -20,19 +20,32 @@ samples_10 <- sample(population, size=10)
 samples_100 <- sample(population, size=100)
 samples_1000 <- sample(population, size=1000)
 samples_10000 <- sample(population, size=10000)
-head(samples_10000)
-# TODO: chart to visualize some samples?
+head(samples_1000)
+
+# Q: do you think a chart of the samples will look like the chart of the 
+# population values? 
+ggplot(data=data.frame(samples_10), aes(x=samples_10)) +
+  geom_bar(color=4, fill=4)
+ggplot(data=data.frame(samples_100), aes(x=samples_100)) +
+  geom_bar(color=4, fill=4)
 
 
 # ---- 3. Computing p-hat ----
-# Count the number that are "support", then divide by the sample size. 
-
+# Q: How would you compute p-hat from the samples?
 # Q: What happens to p-hat as the sample size increases?
-sum(samples_10 == "support") / 10
-sum(samples_100 == "support") / 100
-sum(samples_1000 == "support") / 1000
-sum(samples_10000 == "support") / 10000
-# TODO: Rshiny table?
+
+phat_10 <- sum(samples_10 == "support") / 10
+phat_100 <- sum(samples_100 == "support") / 100
+phat_1000 <- sum(samples_1000 == "support") / 1000
+phat_10000 <- sum(samples_10000 == "support") / 10000
+
+# Display table:
+phats <- matrix(c(phat_10, phat_100, phat_1000, phat_10000))
+rownames(phats) <- c("10 samples", "100 samples", "1000 samples", 
+                     "10000 samples")
+colnames(phats) <- c("p-hat")
+phats <- as.table(phats)
+phats
 
 
 # ---- 4. Central Limit Theorem ---- 
@@ -77,3 +90,7 @@ ggplot(data=data.frame(simulation_100), aes(x=simulation_100)) +
 shinyApp(ui = ui, server = server)
 
 # TODO: add sample & normal densities to app
+# TODO: demonstrate something abt standard error
+
+# TODO: next demonstration: no longer have a population to sample from, instead
+# model the problem as sampling from a binomial distribution
