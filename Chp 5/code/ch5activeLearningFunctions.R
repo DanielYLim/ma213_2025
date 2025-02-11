@@ -10,3 +10,8 @@ sample_get_phat_fn <- function(population, n) {
   return(phat)
 }
 
+create_comparison_data <- function(simulation, density, K=1000) {
+  values <- c(simulation, normal_dist)
+  source <- c(rep("Simulation", K), rep("Normal distribution", K)) 
+  return(data.frame(values, source))
+}

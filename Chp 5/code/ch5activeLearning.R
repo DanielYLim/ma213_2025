@@ -22,7 +22,7 @@ samples_1000 <- sample(population, size=1000)
 samples_10000 <- sample(population, size=10000)
 head(samples_1000)
 
-# Q: do you think a chart of the samples will look like the chart of the 
+# Q: Do you think a chart of the samples will look like the chart of the 
 # population values? 
 ggplot(data=data.frame(samples_10), aes(x=samples_10)) +
   geom_bar(color=4, fill=4)
@@ -50,9 +50,7 @@ phats
 
 # ---- 4. Central Limit Theorem ---- 
 # Take many samples from the population (simulation) to construct a dataset. 
-# Then observe the result of the Central Limit Theorem; namely: 
-# as the number of samples grows large, the sample distribution of p-hat can be 
-# approximated by a Normal distribution.
+# Then observe the result of the Central Limit Theorem.
 
 # Q: What determines where the center or mean of the sampling distribution will
 # fall?  
@@ -72,19 +70,16 @@ ggplot(data=data.frame(simulation_100), aes(x=simulation_100)) +
 
 # Sample from a Normal distribution with computed parameters:
 SE_phat100 <- sqrt((pop_proportion*(1-pop_proportion))/100)
-normal_dist <- rnorm(1000, mean=pop_proportion, sd=SE_phat100)
+normal_dist <- rnorm(K, mean=pop_proportion, sd=SE_phat100)
 
 # For plotting ease, create a new dataframe with the simulation values and the
 # sampled normal values, plus a categorical variable distinguishing them
-values <- c(simulation_100, normal_dist)
-source <- c(rep("Simulation", 1000), rep("Normal distribution", 1000)) 
-comparison <- data.frame(values, source)
+comparison <- create_comparison_data(simulation_100, normal_dist, K)
 
-# Plot the densities:
+# Plot the densities using the new dataframe:
 ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
   geom_density(lwd=1, alpha=0.25) +
   xlim(c(0,1))
-# TODO: move to helper function and just grab the graphs in this file?
 
 
 # 5. ---- Repeat the experiment ---- 
@@ -100,3 +95,5 @@ shinyApp(ui = ui, server = server)
 
 # TODO: next demonstration: no longer have a population to sample from, instead
 # model the problem as sampling from a binomial distribution
+# TODO: test - sweep all variables and rerun
+# TODO: move code to module3 (in ma213 branch - first pull)
