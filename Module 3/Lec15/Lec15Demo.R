@@ -1,14 +1,12 @@
-#library(tidyverse)
 library(ggplot2)
 source("Lec15DemoFunctions.R")
-#source("Lec15DemoShinyApp.R")
 
 # ---- 1. Sampling from a population ----
 
 # ---- 1a. Creating the population ----
 # Create a set of 250 thousand entries, where 88% of them are "support"
 # and 12% are "not".
-pop_size <- 250000
+pop_size <- 25000
 pop_proportion <- 0.88
 population <- create_population(N=pop_size, p=pop_proportion)
 head(population)
@@ -55,27 +53,30 @@ phats
 # Now take samples directly from a distribution function, in this case Binomial
 # Q: What do each of the parameters mean? What are their analogues in the 
 # population sampling case? What do you think the samples will look like?
-samples_b10 <- rbinom(n=10, size=250000, prob=0.88)
+samples_b10 <- rbinom(n=10, size=pop_size, prob=pop_proportion)
 head(samples_b10)
+
+# TODO: rethink this section - check lecture slides
 
 
 # ---- 3. Central Limit Theorem ---- 
-# Take many samples from the population (simulation) to construct a dataset. 
-# Then observe the result of the Central Limit Theorem.
+# Take many samples from the population to construct a dataset, then observe 
+# the result of the Central Limit Theorem.
 
 # Q: What determines where the center or mean of the sampling distribution will
 # fall?  
-K <- 1000  # Simulation size
-simulation_100 <- replicate(K, sample_get_phat_fn(population, n=100))
+# Q: How would you calculate p-hat from the Binomial samples?
 
-ggplot(data=data.frame(simulation_100), aes(x=simulation_100)) +
+K <- 100  # Sample size
+data_100 <- rbinom(n=K, size=250000, prob=0.88)
+data_100 <- data_100 / 250000  # Compute p-hats
+
+ggplot(data=data.frame(data_100), aes(x=data_100)) +
   geom_vline(aes(xintercept=pop_proportion), color="red") +
-  geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
-  labs(title="Histogram of p-hat values from experiment with 1000x100 samples",
-       x="Sample proportion", y="Frequency") +
-  xlim(c(0,1))
+  geom_histogram(bins=50, alpha=0.5, color=4, fill="white") +
+  labs(title="Histogram of p-hat values from experiment with 100 samples",
+       x="Sample proportion", y="Frequency")
 
-# Q: Why have we set the xlimits of the graph to be (0,1)?
 # Q: Where do the parameters for the Normal distribution approximating p-hat 
 # come from?
 
@@ -85,23 +86,12 @@ normal_dist <- rnorm(K, mean=pop_proportion, sd=SE_phat100)
 
 # For plotting ease, create a new dataframe with the simulation values and the
 # sampled normal values, plus a categorical variable distinguishing them
-comparison <- create_comparison_data(simulation_100, normal_dist, K)
+comparison <- create_comparison_data(data_100, normal_dist, K)
 
 # Plot the densities using the new dataframe:
 ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
-  geom_density(lwd=1, alpha=0.25) +
-  xlim(c(0,1))
+  geom_density(lwd=1, alpha=0.25)
 
 
-# 4. ---- Repeat the experiment ---- 
-# Now construct datasets from samples of different sizes and repeat the above. 
-
-# Q: What happens to the distributions as sample size increases?
-
-# Run Rshiny app
-shinyApp(ui = ui, server = server)
-
-# TODO: add sample & normal densities to app
-# TODO: demonstrate something abt standard error
-
+# TODO: add a section abt sampling variability
 # TODO: test - sweep all variables and rerun
