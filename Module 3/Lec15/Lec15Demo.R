@@ -31,9 +31,10 @@ ggplot(data=data.frame(samples_100), aes(x=samples_100)) +
   geom_bar(color=4, fill=4)
 
 
-# ---- 1c. Computing p-hat ----
+# ---- 1c. Computing p-hat, sampling variability ----
 # Q: How would you compute p-hat from the samples?
-# Q: What happens to p-hat as the sample size increases?
+# Q: What happens to p-hat as the sample size increases? Which value of p-hat 
+# do you think will be closer to the "true" (population) value?
 
 phat_10 <- sum(samples_10 == "support") / 10
 phat_100 <- sum(samples_100 == "support") / 100
@@ -91,7 +92,3 @@ comparison <- create_comparison_data(data_100, normal_dist, K)
 # Plot the densities using the new dataframe:
 ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
   geom_density(lwd=1, alpha=0.25)
-
-
-# TODO: add a section abt sampling variability
-# TODO: test - sweep all variables and rerun
