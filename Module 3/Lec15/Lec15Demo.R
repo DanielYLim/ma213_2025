@@ -58,37 +58,3 @@ samples_b10 <- rbinom(n=10, size=pop_size, prob=pop_proportion)
 head(samples_b10)
 
 # TODO: rethink this section - check lecture slides
-
-
-# ---- 3. Central Limit Theorem ---- 
-# Take many samples from the population to construct a dataset, then observe 
-# the result of the Central Limit Theorem.
-
-# Q: What determines where the center or mean of the sampling distribution will
-# fall?  
-# Q: How would you calculate p-hat from the Binomial samples?
-
-K <- 100  # Sample size
-data_100 <- rbinom(n=K, size=250000, prob=0.88)
-data_100 <- data_100 / 250000  # Compute p-hats
-
-ggplot(data=data.frame(data_100), aes(x=data_100)) +
-  geom_vline(aes(xintercept=pop_proportion), color="red") +
-  geom_histogram(bins=50, alpha=0.5, color=4, fill="white") +
-  labs(title="Histogram of p-hat values from experiment with 100 samples",
-       x="Sample proportion", y="Frequency")
-
-# Q: Where do the parameters for the Normal distribution approximating p-hat 
-# come from?
-
-# Sample from a Normal distribution with computed parameters:
-SE_phat100 <- sqrt((pop_proportion*(1-pop_proportion))/100)
-normal_dist <- rnorm(K, mean=pop_proportion, sd=SE_phat100)
-
-# For plotting ease, create a new dataframe with the simulation values and the
-# sampled normal values, plus a categorical variable distinguishing them
-comparison <- create_comparison_data(data_100, normal_dist, K)
-
-# Plot the densities using the new dataframe:
-ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
-  geom_density(lwd=1, alpha=0.25)

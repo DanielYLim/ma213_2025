@@ -3,10 +3,3 @@ create_population <- function(N=10000, p=0.5) {
   pop <- sample(pop)  # need to randomize order of entries
   return(pop)
 }
-
-
-create_comparison_data <- function(simulation, density, K=1000) {
-  values <- c(simulation, normal_dist)
-  source <- c(rep("Simulation", K), rep("Normal distribution", K)) 
-  return(data.frame(values, source))
-}
