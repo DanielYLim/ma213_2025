@@ -59,6 +59,7 @@ normal_dist <- rnorm(K, mean=pop_proportion, sd=SE_phat100)
 # sampled normal values, plus a categorical variable distinguishing them
 comparison <- create_comparison_data(simulation_100, normal_dist, K)
 
+# TODO: just plot sample histogram (normalized=TRUE) + Normal
 # Plot the densities using the new dataframe:
 ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
   geom_density(lwd=1, alpha=0.25) +
@@ -72,3 +73,6 @@ ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
 
 # Run Rshiny app
 shinyApp(ui = ui, server = server)
+# TODO: one plot! same as above
+
+# TODO: new estimator -> rule of succession for small p / small N
