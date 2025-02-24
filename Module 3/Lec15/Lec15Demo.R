@@ -17,7 +17,16 @@ ggplot(data=data.frame(population), aes(x=population)) +
 
 
 # ---- 1b. Take samples ----
+
+# Q: if we sample from the population multiple times, do you think the samples
+# will all be the same, or different?
+
+# Run these lines more than once and see what happens:
 samples_10 <- sample(population, size=10)
+ggplot(data=data.frame(samples_10), aes(x=samples_10)) +
+  geom_bar(color=4, fill=4)
+
+# Now take more samples of different sizes:
 samples_100 <- sample(population, size=100)
 samples_1000 <- sample(population, size=1000)
 samples_10000 <- sample(population, size=10000)
@@ -52,9 +61,27 @@ phats
 
 # ---- 2. Modeling a population with distributions ----
 # Now take samples directly from a distribution function, in this case Binomial
+
 # Q: What do each of the parameters mean? What are their analogues in the 
 # population sampling case? What do you think the samples will look like?
 samples_b10 <- rbinom(n=10, size=pop_size, prob=pop_proportion)
 head(samples_b10)
 
-# TODO: rethink this section - check lecture slides
+# ---- 2a. First simulation ----
+# Q: What determines where the center or mean of the sampling distribution will
+# fall?  
+K <- 1000  # Simulation size
+n <- 100   # Sample size
+for(index in 1:K) {
+  sampled_entries <- rbinom(n=n, size=pop_size, prob=pop_proportion) 
+  phats_simulation <- sampled_entries / pop_size
+}
+
+ggplot(data=data.frame(phats_simulation), aes(x=phats_simulation)) +
+  geom_vline(aes(xintercept=pop_proportion), color="red") +
+  geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
+  labs(title="Histogram of p-hat values from experiment with 1000x100 samples",
+       x="Sample proportion", y="Frequency") +
+  xlim(c(0,1))
+
+# TODO: should we still be sampling the original population, or the Binomial?
