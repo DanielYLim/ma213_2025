@@ -1,5 +1,4 @@
 library(shiny)
-library(cowplot)
 source("Lec16DemoFunctions.R")
 
 # ---- UI ----
@@ -26,6 +25,8 @@ server <- function(input, output) {
     return(possible_entries)
   })
   
+  # TODO: one plot, figure out how to normalize histogram
+  # TODO: add checkbox for adjusted estimators (small sample sizes)
   observeEvent(input$simulate, {
     output$histPlot <- renderPlot({
       K <- 1000  # Number of simulations 
