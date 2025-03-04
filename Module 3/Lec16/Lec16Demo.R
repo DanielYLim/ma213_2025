@@ -11,10 +11,10 @@ source("Lec16ShinyApp.R")
 # ---- 1. From last time: sampling from a population, simulation ----
 
 pop_size <- 250000
-pop_proportion <- 0.88
+pop_proportion <- 0.65
 population <- create_population(N=pop_size, p=pop_proportion)
 
-sample_size <- 10
+sample_size <- 1000
 samples <- sample(population, size=sample_size)
 phat <- sum(samples == "support") / sample_size
 
