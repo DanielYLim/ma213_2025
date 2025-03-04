@@ -69,4 +69,9 @@ ggplot(data=data.frame(simulation), aes(x=simulation)) +
   xlim(c(0,1))
 
 # Q: Why have we set the xlimits of the graph to be (0,1)?
+# Q: What determines where the center or mean of the sampling distribution will
+# fall?  
+
+# TODO: new estimator -> rule of succession for small p / small N
+
 
