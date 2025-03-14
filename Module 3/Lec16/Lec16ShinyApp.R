@@ -25,7 +25,6 @@ server <- function(input, output) {
     return(possible_entries)
   })
   
-  # TODO: one plot, figure out how to normalize histogram
   # TODO: add checkbox for adjusted estimators (small sample sizes)
   observeEvent(input$simulate, {
     output$histPlot <- renderPlot({
@@ -36,29 +35,17 @@ server <- function(input, output) {
       simulation <- replicate(K, sample_get_phat_fn(population, input$n))
       
       SE_phat <- sqrt((input$p*(1-input$p))/K)
-      normal_dist <- rnorm(K, mean=input$p, sd=SE_phat)
-      comparison <- create_comparison_data(simulation, normal_dist, K)
+      bw <- 0.01
+      n_obs <- length(simulation)
       
-      # Create histogram plot
-      hist <- ggplot(data = data.frame(simulation), 
-                     aes(x = simulation)) +
-        geom_histogram(bins=100, alpha=0.5, color=4, fill="white") + 
-        labs(title = "Histogram of p-hat values",
-             x = "Sample Proportion (p-hat)",
-             y = "Frequency") + 
+      # Create & display histogram plot
+      ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
+        geom_histogram(binwidth=bw, alpha=0.5, color=4, fill="white") +
+        stat_function(fun = function(x) 
+          dnorm(x, mean=input$p, sd=SE_phat)*bw*n_obs) +
+        xlab("Sample proportion") +
+        ggtitle(title) +
         xlim(c(0,1))
-      
-      # Create density plot
-      dens <- ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
-        geom_density(lwd=1, alpha=0.25) +
-        labs(title = "Distribution comparison",
-             x = "Sample Proportion (p-hat)",
-             y = "Density") +
-        theme(legend.position = c(0.8, 0.8)) +
-        xlim(c(0,1))
-      
-      # Display histogram & density plots together
-      plot_grid(hist, dens)
     })
   })
 }

@@ -36,34 +36,23 @@ ggplot(data=data.frame(simulation), aes(x=simulation)) +
 
 # Sample from a Normal distribution with computed parameters:
 SE_phat <- sqrt((pop_proportion*(1-pop_proportion))/100)
-normal_dist <- rnorm(K, mean=pop_proportion, sd=SE_phat)
 
-# ---- 3. Comparing our simulation to the Normal ----
-# For plotting ease, create a new dataframe with the simulation values and the
-# sampled normal values, plus a categorical variable distinguishing them
-comparison <- create_comparison_data(simulation, normal_dist, K)
+bw <- 0.01
+n_obs <- length(simulation)
 
-# TODO: help with normalizing histogram
-# Plot the densities using the new dataframe:
-#ggplot(data=comparison, aes(x=values, color=source, fill=source)) +
-  #geom_vline(aes(xintercept=pop_proportion), color="red") +
-  #geom_histogram(data=comparison[comparison$source == "Simulation",], 
-  #               aes(y=stat(count / sum(count))),
-  #               bins=100, alpha=0.5, color=4, fill="white") +
-  #geom_histogram(data=comparison[comparison$source == "Simulation",], 
-  #               bins=100, alpha=0.5, color=4, fill="white") +
-  #geom_density(data=comparison[comparison$source == "Normal",], 
-  #             lwd=1, alpha=0.25) +
-  #stat_function(fun=dnorm, args=list(mean=pop_proportion, sd=SE_phat)) +
-  #xlim(c(0,1))
-
+# Plot the histogram with the Normal density:
 ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
-  geom_histogram(aes(y=after_stat(density)), bins=100, 
-                 alpha=0.5, color=4, fill="white") +
-  stat_function(fun=dnorm, args=list(mean=pop_proportion, sd=SE_phat), 
-                lwd=1, alpha=0.5, color=2) +
-  labs(title=title, x="Sample proportion", y="Density") +
+  geom_histogram(binwidth=bw, alpha=0.5, color=4, fill="white") +
+  stat_function(fun = function(x) 
+    dnorm(x, mean=pop_proportion, sd=SE_phat)*bw*n_obs) +
+  xlab("Sample proportion") +
+  ggtitle(title) +
   xlim(c(0,1))
+
+# Rescale the y-axis:
+#ybreaks = seq(0, 50, 10)
+#g + scale_y_continuous("Counts", breaks = round(ybreaks / (bw * n_obs),3), 
+#                       labels = ybreaks)
 
 
 # 3. ---- Repeat the experiment for different sample sizes ---- 
@@ -73,5 +62,5 @@ ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
 
 # Run Rshiny app
 shinyApp(ui = ui, server = server)
-# TODO: one plot! same as above
+# TODO: fix RShiny app
 
