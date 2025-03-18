@@ -47,15 +47,8 @@ ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
   ggtitle(title) +
   xlim(c(0,1))
 
-# Rescale the y-axis:
-#ybreaks = seq(0, 50, 10)
-#g + scale_y_continuous("Counts", breaks = round(ybreaks / (bw * n_obs),3), 
-#                       labels = ybreaks)
-
 
 # 3. ---- Repeat the experiment for different sample sizes ---- 
-# Now construct datasets from samples of different sizes and repeat the above. 
-
 # Q: What happens to the distributions as sample size increases?
 
 # Run Rshiny app
