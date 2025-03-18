@@ -34,19 +34,10 @@ ggplot(data=data.frame(simulation), aes(x=simulation)) +
 # Q: Where do the parameters for the Normal distribution approximating p-hat 
 # come from?
 
-<<<<<<< HEAD
 bw <- 0.01
 n_obs <- length(simulation)
 SE_phat <- sqrt((pop_proportion*(1-pop_proportion))/n_obs)
 
-=======
-# Sample from a Normal distribution with computed parameters:
-SE_phat <- sqrt((pop_proportion*(1-pop_proportion))/100)
-
-bw <- 0.01
-n_obs <- length(simulation)
-
->>>>>>> 75e9eb6067f71bb431cb7357cbfe2b391e236452
 # Plot the histogram with the Normal density:
 ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
   geom_histogram(binwidth=bw, alpha=0.5, color=4, fill="white") +
