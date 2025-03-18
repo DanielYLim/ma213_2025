@@ -39,7 +39,7 @@ server <- function(input, output) {
       bw <- 0.01
       n_obs <- length(simulation)
       SE <- sqrt((input$p*(1-input$p))/n_obs)
-      
+
       # Create & display histogram plot
       ggplot(data=as.data.frame(simulation), aes(x=simulation)) +
         geom_histogram(binwidth=bw, alpha=0.5, color=4, fill="white") +
