@@ -7,7 +7,7 @@
 \documentclass[t,compress,mathserif]{beamer}
 \newcommand{\soln}[1]{\textit{#1}}
 \newcommand{\solnGr}[1]{#1}
-\def\chp5@path{.}
+\def\chp5@path{../../Chp 5}
 
 % Option 2: Handouts without solutions
 
@@ -29,9 +29,10 @@
 % Preamble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[Chp 5: Foundations for inference]{Chapter 5: Foundations for inference}
+\title[Lecture 15]{MA213: Lecture 15}
+\subtitle{Module 3: Foundations for inference}
 \author{OpenIntro Statistics, 4th Edition}
-\institute{$\:$ \\ {\footnotesize Slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
+\institute{$\:$ \\ {\footnotesize Based on slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
 The slides may be copied, edited, and/or shared via the \webLink{http://creativecommons.org/licenses/by-sa/3.0/us/}{CC BY-SA license.} \\
 Some images may be included under fair use guidelines (educational purposes).}}
 \date{}
@@ -67,17 +68,31 @@ Some images may be included under fair use guidelines (educational purposes).}}
 % Sections
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Review}
+\include{Lec15_agenda}
 
 \begin{frame}
-\frametitle{Last time: Distributions and random variables (Ch. 4)}
-\begin{itemize}
-    \item Continuous vs discrete random variables
-    \item Distributions: Normal, Geometric, Poisson
-    \item Today we will derive another distribution, used for estimating proportions
-    \item But first...
-\end{itemize}
+    \frametitle{Module 3: Foundations for inference}
 
+    Up until now, we have talked about:
+    \begin{itemize}
+        \item \hl{Module 1. }Exploratory Data Analysis and Study Design
+        \begin{itemize}
+            \item Often we don't have access to a whole \hl{population} of interest, so we draw a random \hl{sample}
+            \item A \hl{sample statistic} is a value computed from a data sample, like a sample mean
+        \end{itemize}
+        \pause
+        \item \hl{Module 2. }Probability, Random Variables, and Distributions
+        \begin{itemize}
+            \item We use probability theory to model \hl{random experiments}, like drawing a random sample from a population
+            \item The parameters of the models are called \hl{population parameters}
+        \end{itemize}
+    \end{itemize}
+   
+    \pause
+    \begin{center}
+        How can we use \hl{sample statistics} to learn about \hl{population parameters}?\\
+        \hl{Module 3. }Foundations for inference
+    \end{center}
 \end{frame}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
@@ -104,6 +119,95 @@ Some images may be included under fair use guidelines (educational purposes).}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{}
+    
+    \dq{Suppose we randomly sample 1,000 adults from each state in the US. Would you expect the sample means of their heights to be the same, somewhat different, or very different?}
+    
+    \pause
+    
+    \soln{Not the same, but only somewhat different.}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\subsection{Understanding the variability of a point estimate}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{}
+    
+    \begin{center}
+    \includegraphics[width=0.95\textwidth]{\chp5@path/5-1_point_est_sampling_var/figures/pew/pew1} \\
+    \includegraphics[width=0.95\textwidth]{\chp5@path/5-1_point_est_sampling_var/figures/pew/pew2} \\
+    \includegraphics[width=0.95\textwidth]{\chp5@path/5-1_point_est_sampling_var/figures/pew/pew3}
+    \end{center}
+    
+    \ct{\webURL{http://pewresearch.org/pubs/2191/young-adults-workers-labor-market-pay-careers-advancement-recession}}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Margin of error}
+    
+    \begin{center}
+    \includegraphics[width=0.95\textwidth]{\chp5@path/5-1_point_est_sampling_var/figures/pew/pew4}
+    \end{center}
+    
+    \begin{itemize}
+    
+    \item 41\% $\pm$ 2.9\%: We are 95\% confident that 38.1\% to 43.9\% of the public believe young adults, rather than middle-aged or older adults, are having the toughest time in today's economy.
+    
+    \item 49\% $\pm$ 4.4\%: We are 95\% confident that 44.6\% to 53.4\% of 18-34 years olds have taken a job they didn't want just to pay the bills.
+    
+    \end{itemize}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{}
+    
+    \dq{Suppose the proportion of American adults who support the expansion of solar energy is p = 0.88, which is our parameter of interest. Is a randomly selected American adult more or less likely to support the expansion of solar energy?}
+    
+    \pause
+    
+    \soln{More likely.}
+    
+\end{frame}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{}
+    
+    \dq{Suppose that you don't have access to the populaion of all American adults, which is a quite likely scenario. In order to estimate the proportion of American adults who support solar power expansion, you might sample from the population and use your sample proportion as the best guess for the unknown population proportion.}
+    
+    \begin{itemize}
+    
+    \item Sample, with replacement, 1000 American adults from the population, and record whether they support or not solar power expansion.
+    
+    \item Find the sample proportion.
+    
+    \item Plot the distribution of the sample proportions obtained by members of the class.
+    
+    \end{itemize}
+    
+\end{frame}
+    
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{R Demo: Sampling distributions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
 \begin{frame}
     \frametitle{Sampling distributions are never observed}
 
@@ -118,15 +222,38 @@ Some images may be included under fair use guidelines (educational purposes).}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{R Demo: Sampling distributions}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
 \section{Edfinity quiz}
 
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\begin{frame}
+    \frametitle{Edfinity Quiz}
+
+    \begin{itemize}
+
+        \item If the population proportion were 0.2, and the sample size was 100:
+        \begin{itemize}
+            \item Where would you expect the middle of the sampling distribution to be?
+            \item Would the sampling distribution be symmetrical?
+            \item Would the sampling distribution be wider/narrower/the same?
+        \end{itemize}
+        \item If the population proportion were 0.99, and the sample size was 100:
+        \begin{itemize}
+            \item Where would you expect the middle of the sampling distribution to be?
+            \item Would the sampling distribution be symmetrical?
+            \item Would the sampling distribution be wider/narrower/the same?
+        \end{itemize}
+        \item What would happen if the sample size were 10? (open ended)
+
+    \end{itemize}
+
+\end{frame}
+
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{R Demo: p=0.2, N=100}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
@@ -134,30 +261,37 @@ Some images may be included under fair use guidelines (educational purposes).}}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\section{Introducing bias for small-sample estimation}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
 \begin{frame}
     \frametitle{Rule of succession}
 
+    There can be multiple statistics that estimate the same population parameter
     \begin{itemize}
 
-        \item (Placeholder for material)
-
+        \item \hl{The Rule Of Succession} (Laplace, 18th Century)
+        \item What is the probability that the sun will rise tomorrow, given that it has risen every day for the last 5000 years?
+        \item 0 is an unsatisfying answer
+        \item Approach: Pretend we have seen one success and one failure
+    
     \end{itemize}
 
+    Sample proportion:
+     \begin{align}
+        \hat{p}=\frac{k}{n}
+    \end{align}
+ 
+    Rule of Succession:
+    \begin{align}
+        \hat{p}^*=\frac{k +1}{n+2}
+    \end{align}
+ 
 \end{frame}
 
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{Board work: deriving two estimators for Binomial case}
-
-%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
-\section{R Demo: Rule of succession}
 
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
+
+\section{R Demo: Comparing different estimators based on their sampling distributions}
+
+%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % End document
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
