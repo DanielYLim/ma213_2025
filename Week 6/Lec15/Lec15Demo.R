@@ -33,8 +33,6 @@ ggplot(data=data.frame(population), aes(x=population)) +
 # will all be the same, or different?
 sample_size <- 1000
 
-# Run these lines more than once and see what happens:
-# Note: can also change the sample size above and observe!
 samples <- sample(population, size=sample_size)
 head(samples,n=10)
 sample_proportion <- sum(samples == "support") / sample_size
@@ -55,15 +53,21 @@ sample_phat_fn <- function(pop, n) {
   return(phat)
 }
 
+# Simulate the experiment 5000 times
 simulation <- replicate(K, sample_phat_fn(population, n=sample_size))
-title <- sprintf("Histogram of p-hat values from repeating the experiment %s times, \neach with %s samples", 
-                 K, sample_size)  # in case we change the sample/simulation size
 
+# mean and standard deviation of sampling distribution
+m = mean(simulation)
+s = sd(simulation)
+
+# Plot the results
+title <- sprintf("Histogram of p-hat values from repeating the experiment %s times, \np=%s, sample size=%s", 
+                 K, pop_proportion, sample_size)  # in case we change the sample/simulation size
 ggplot(data=data.frame(simulation), aes(x=simulation)) +
+  geom_histogram(breaks=seq(0,1,0.01), color=4, fill="white") +
   geom_vline(aes(xintercept=pop_proportion), color="red") +
-  geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
-  labs(title=title, x="Sample proportion (phat)", y="Frequency") +
-  xlim(c(0,1))
+  annotate("pointrange", x=m, xmin=m-2*s,xmax=m+2*s,y=K/50, color="blue") +
+  labs(title=title, x="Sample proportion (phat)", y="Count") 
 
 # Q: What is the shape and center of this distribution?
 # Q: Based on this distribution, what is a good guess for the population proportion?
@@ -87,11 +91,10 @@ sample_plot_sampling_dist_fn <- function(pop_size,pop_proportion,sample_size,K,
                    pop_size, pop_proportion, sample_size,K,m,s)  
   
   ggplot(data=data.frame(simulation), aes(x=simulation)) +
-    geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
+    geom_histogram(breaks=seq(0,1,0.01), color=4, fill="white") +
     geom_vline(aes(xintercept=pop_proportion), color="red") +
     annotate("pointrange", x=m, xmin=m-2*s,xmax=m+2*s,y=K/50, color="blue") +
-    labs(title=title, x="Sample proportion (phat)", y="Frequency") +
-    xlim(min(-0.05,m-2*s),max(1.05,m+2*s))
+    labs(title=title, x="Sample proportion (phat)", y="Count")
 }
 
 sample_plot_sampling_dist_fn(250000, 0.2, 100, 5000, sample_phat_fn)
