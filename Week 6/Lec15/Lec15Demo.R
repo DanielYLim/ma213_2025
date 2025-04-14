@@ -7,23 +7,27 @@ setwd(dirname(getSourceEditorContext()$path))
 
 source("Lec15DemoFunctions.R")
 
-
 # ---- 1. Sampling from a population ----
 
 # ---- 1a. Creating the population ----
 # Create a set of 250 thousand entries, where 88% of them are "support"
 # and 12% are "not".
-pop_size <- 25000
-pop_proportion <- 0.65
+pop_size <- 250000
+pop_proportion <- 0.88
+
+# create the population
 population <- create_population(N=pop_size, p=pop_proportion)
-head(population)
-sum(population == "support") / pop_size  # Should be 0.88
-# Sanity check: visualize the population with a chart
+
+# Check that the proportion of "support" is 0.88
+sum(population == "support") / pop_size 
+
+# Visualize the population with a chart
 ggplot(data=data.frame(population), aes(x=population)) +
-  geom_bar(color=4, fill=4)
+  geom_bar(color=4, fill=4) + 
+  ylim(0,pop_size) +
+  ggtitle(sprintf("Population proportion (p): %s", pop_proportion))
 
-
-# ---- 1b. Take samples ----
+# ---- 1b. Take samples and compute phat ----
 
 # Q: if we sample from the population multiple times, do you think the samples
 # will all be the same, or different?
@@ -32,72 +36,84 @@ sample_size <- 1000
 # Run these lines more than once and see what happens:
 # Note: can also change the sample size above and observe!
 samples <- sample(population, size=sample_size)
-head(samples)
+head(samples,n=10)
+sample_proportion <- sum(samples == "support") / sample_size
 ggplot(data=data.frame(samples), aes(x=samples)) +
-  geom_bar(color=4, fill=4)
+  geom_bar(color=4, fill=4) + ylim(0,sample_size) + 
+  ggtitle(sprintf("Sample proportion (phat): %s", sample_proportion))
 
 # Q: Do you think a chart of the samples will look like the chart of the 
 # population values? 
 
-
-# ---- 1c. Computing p-hat, sampling variability ----
-# Q: How would you compute p-hat from the samples?
-# Q: What happens to p-hat as the sample size increases? Which value of p-hat 
-# do you think will be closer to the "true" (population) value?
-
-phat <- sum(samples == "support") / sample_size
-
-
-# ---- 2. First simulation: taking many samples ----
-K <- 1000  # Simulation size
+# ---- 2. Repeat the experiment 5000 times ----
+K <- 5000  # Simulation size
 
 # Write a function to run the simulation and compute p-hat:
-sample_get_phat_fn <- function(population, n) {
-  sampled_entries <- sample(population, size = n)
+sample_phat_fn <- function(pop, n) {
+  sampled_entries <- sample(pop, size = n)
   phat <- sum(sampled_entries == "support") / n
   return(phat)
 }
 
-simulation <- replicate(K, sample_get_phat_fn(population, n=sample_size))
-title <- sprintf("Histogram of p-hat values from experiment with %sx%s samples", 
+simulation <- replicate(K, sample_phat_fn(population, n=sample_size))
+title <- sprintf("Histogram of p-hat values from repeating the experiment %s times, \neach with %s samples", 
                  K, sample_size)  # in case we change the sample/simulation size
 
 ggplot(data=data.frame(simulation), aes(x=simulation)) +
   geom_vline(aes(xintercept=pop_proportion), color="red") +
   geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
-  labs(title=title, x="Sample proportion", y="Frequency") +
+  labs(title=title, x="Sample proportion (phat)", y="Frequency") +
   xlim(c(0,1))
 
+# Q: What is the shape and center of this distribution?
+# Q: Based on this distribution, what is a good guess for the population proportion?
 # Q: Why have we set the xlimits of the graph to be (0,1)?
-# Q: What determines where the center or mean of the sampling distribution will
-# fall?  
 
+# ---- 2b. What would happen if ... ----
+sample_plot_sampling_dist_fn <- function(pop_size,pop_proportion,sample_size,K,
+                                         sample_phat_fn){
+  # Create the new population
+  population <- create_population(N=pop_size, p=pop_proportion)
+  
+  # Run the experiment K times
+  simulation <- replicate(K, sample_phat_fn(population, n=sample_size))
+  
+  # mean and standard deviation of sampling distribution
+  m = mean(simulation)
+  s = sd(simulation)
+  
+  # plot the Histogram of phat values
+  title <- sprintf("Population size=%s; p=%s; sample size=%s; repeats=%s\n Mean=%.3f; St Dev=%.3f", 
+                   pop_size, pop_proportion, sample_size,K,m,s)  
+  
+  ggplot(data=data.frame(simulation), aes(x=simulation)) +
+    geom_histogram(bins=100, alpha=0.5, color=4, fill="white") +
+    geom_vline(aes(xintercept=pop_proportion), color="red") +
+    annotate("pointrange", x=m, xmin=m-2*s,xmax=m+2*s,y=K/50, color="blue") +
+    labs(title=title, x="Sample proportion (phat)", y="Frequency") +
+    xlim(min(-0.05,m-2*s),max(1.05,m+2*s))
+}
+
+sample_plot_sampling_dist_fn(250000, 0.2, 100, 5000, sample_phat_fn)
+sample_plot_sampling_dist_fn(250000, 0.99, 100, 5000, sample_phat_fn)
+sample_plot_sampling_dist_fn(250000, 0.2, 10, 5000, sample_phat_fn)
 
 # ---- 3. Estimating p-hat for a small sample - introducing bias ----
-# Imagine that we have a very small sample size, eg. 10 or fewer, and a true
+# Imagine that we have a small sample size and/or a true
 # population proportion that is heavily weighted to one side or the other 
-# (ie very close to 0 or very close to 1). This means we may not actually 
-# observe both successes and failures in our sample, so the sample p-hat will
-# be wrong. However, we can adjust our estimator for this case!
+# (ie very close to 0 or very close to 1), so that we may not actually 
+# observe both successes and failures in our sample. The Rule of Succession was
+# designed for this situation. It defines a new estimator (k+1)/(n+2), that 
+# cannot be exactly 0 or exactly 1.
 
-# To illustrate the problem, try this new setting:
-new_pop_size <- 25000
-new_pop_proportion <- 0.9
-new_population <- create_population(N=new_pop_size, p=new_pop_proportion)
-head(new_population)
-sum(new_population == "support") / new_pop_size  # Should be 0.9
+sample_plot_sampling_dist_fn(250000, 0.01, 20, 5000, sample_phat_fn)
 
-new_sample_size <- 5
-new_samples <- sample(new_population, size=new_sample_size)
-head(new_samples)
-ggplot(data=data.frame(new_samples), aes(x=new_samples)) +
-  geom_bar(color=4, fill=4)
+succession_phat_fn <- function(pop, n) {
+  sampled_entries <- sample(pop, size = n)
+  phat <- (sum(sampled_entries == "support")+1) / (n+2)
+  return(phat)
+}
 
-# First, compute p-hat as we have been
-phat_unbiased <- sum(new_samples == "support") / new_sample_size
-print(phat_unbiased)
+sample_plot_sampling_dist_fn(250000, 0.01, 20, 5000, succession_phat_fn)
 
-# Now try this method, called the Rule of Succession estimator:
-phat_biased <- sum(new_samples == "support") / (new_sample_size + 2)
-print(phat_biased)
 
