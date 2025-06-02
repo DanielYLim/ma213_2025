@@ -20,6 +20,7 @@
 % Style
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\def\chpii@path{../../Chp 2}
 \input{../../lec_style.tex}
 
 
@@ -27,9 +28,10 @@
 % Preamble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[Chp 2: Summarizing data]{Chapter 2: Summarizing data}
+\title[Lecture 4]{MA 213: Lecture 4}
+\subtitle{Module 1: Exploratory Data Analysis and Study Design}
 \author{OpenIntro Statistics, 4th Edition}
-\institute{$\:$ \\ {\footnotesize Slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
+\institute{$\:$ \\ {\footnotesize Based on slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
 The slides may be copied, edited, and/or shared via the \webLink{http://creativecommons.org/licenses/by-sa/3.0/us/}{CC BY-SA license.} \\
 Some images may be included under fair use guidelines (educational purposes).}}
 \date{}
@@ -63,13 +65,15 @@ Some images may be included under fair use guidelines (educational purposes).}}
 % Sections
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
+\input{Lecture4_agenda.tex}
+
 \begin{frame}
 \frametitle{Box plot}
 
 The box in a \hl{box plot} represents the middle 50\% of the data, and the thick line in the box is the median.
 
 \begin{center}
-%\includegraphics[width=0.7\textwidth]{2-1_numerical_data/figures/study_hours/study_hours_box}
+\includegraphics[width=0.7\textwidth]{\chpii@path/2-1_numerical_data/figures/study_hours/study_hours_box}
 \end{center}
 
 \end{frame}
@@ -80,7 +84,7 @@ The box in a \hl{box plot} represents the middle 50\% of the data, and the thick
 \frametitle{Anatomy of a box plot}
 
 \begin{center}
-%\includegraphics[width=0.95\textwidth]{2-1_numerical_data/figures/study_hours/study_hours_box_layout}
+\includegraphics[width=0.95\textwidth]{\chpii@path/2-1_numerical_data/figures/study_hours/study_hours_box_layout}
 \end{center}
 
 \end{frame}
@@ -153,7 +157,7 @@ The box in a \hl{box plot} represents the middle 50\% of the data, and the thick
 \dq{How would sample statistics such as mean, median, SD, and IQR of household income be affected if the largest value was replaced with \$10 million? What if the smallest value was replaced with \$10 million?}
 
 \begin{center}
-%\includegraphics[width=\textwidth]{2-1_numerical_data/figures/house_income/house_income_dot_stacked}
+\includegraphics[width=\textwidth]{\chpii@path/2-1_numerical_data/figures/house_income/house_income_dot_stacked}
 \end{center}
 
 \end{frame}
@@ -168,7 +172,7 @@ The box in a \hl{box plot} represents the middle 50\% of the data, and the thick
 \frametitle{Robust statistics}
 
 \begin{center}
-%\includegraphics[width=\textwidth]{2-1_numerical_data/figures/house_income/house_income_dot_stacked}
+\includegraphics[width=\textwidth]{\chpii@path/2-1_numerical_data/figures/house_income/house_income_dot_stacked}
 \end{center}
 
 {\small
@@ -220,7 +224,7 @@ $\:$ \\
 \item If the distribution is symmetric, center is often defined as the mean: mean $\approx$ median
 
 \begin{center}
-%\includegraphics[width=0.33\textwidth]{2-1_numerical_data/figures/mean_med/sym}
+\includegraphics[width=0.33\textwidth]{\chpii@path/2-1_numerical_data/figures/mean_med/sym}
 \end{center}
 
 \item If the distribution is skewed or has extreme outliers, center is often defined as the median
@@ -232,8 +236,8 @@ $\:$ \\
 \end{itemize}
 
 \begin{center}
-%\includegraphics[width=0.33\textwidth]{2-1_numerical_data/figures/mean_med/rs}
-%\includegraphics[width=0.33\textwidth]{2-1_numerical_data/figures/mean_med/ls}\\
+\includegraphics[width=0.33\textwidth]{\chpii@path/2-1_numerical_data/figures/mean_med/rs}
+\includegraphics[width=0.33\textwidth]{\chpii@path/2-1_numerical_data/figures/mean_med/ls}\\
 \end{center}
 
 \end{frame}
@@ -250,7 +254,7 @@ $\:$ \\
 % \begin{columns}
 % \column{0.7\textwidth}
 % \begin{center}
-% % \includegraphics[width=0.9\textwidth]{2-1_numerical_data/figures/notes_perc/notes_perc_hist}
+% % \includegraphics[width=0.9\textwidth]{\chpii@path/2-1_numerical_data/figures/notes_perc/notes_perc_hist}
 % \end{center}
 % \column{0.3\textwidth}
 % $\:$ \\
@@ -291,8 +295,8 @@ $\:$ \\
 The histograms on the left shows the distribution of number of basketball games attended by students. The histogram on the right shows the distribution of log of number of games attended.
 
 \begin{center}
-%\includegraphics[width=0.5\textwidth]{2-1_numerical_data/figures/basket_games/basket_games_hist}
-%\includegraphics[width=0.5\textwidth]{2-1_numerical_data/figures/basket_games/basket_games_hist_log}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-1_numerical_data/figures/basket_games/basket_games_hist}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-1_numerical_data/figures/basket_games/basket_games_hist_log}
 \end{center}
 
 \end{frame}
@@ -338,7 +342,7 @@ $\:$ \\
 \dq{What patterns are apparent in the change in population between 2000 and 2010?}
 
 \begin{center}
-%\includegraphics[width=0.95\textwidth]{2-1_numerical_data/figures/change_in_pop_intensity}
+\includegraphics[width=0.95\textwidth]{\chpii@path/2-1_numerical_data/figures/change_in_pop_intensity}
 \end{center}
 
 \ct{\webURL{http://projects.nytimes.com/census/2010/map}}
@@ -390,8 +394,8 @@ The contingency table below shows the distribution of survival and ages of passe
 A \hl{bar plot} is a common way to display a single categorical variable. A bar plot where proportions instead of frequencies are shown is called a \hl{relative frequency bar plot}.
 
 \begin{center}
-%\includegraphics[width=0.45\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_bar}
-%\includegraphics[width=0.45\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_rel_bar}
+\includegraphics[width=0.45\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_bar}
+\includegraphics[width=0.45\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_rel_bar}
 \end{center}
 
 \pause
@@ -476,9 +480,9 @@ information, for proportions.
 \dq{What are the differences between the three visualizations shown below?}
 
 \begin{center}
-%\includegraphics[width=0.5\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_seg_bar}
-%\includegraphics[width=0.5\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_seg_bar_dodge} \\
-%\includegraphics[width=0.5\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_rel_seg_bar}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_seg_bar}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_seg_bar_dodge} \\
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_rel_seg_bar}
 \end{center}
 
 \end{frame}
@@ -495,8 +499,8 @@ information, for proportions.
 \dq{What is the difference between the two visualizations shown below?}
 
 \begin{center}
-%\includegraphics[width=0.5\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_rel_seg_bar}
-%\includegraphics[width=0.5\textwidth]{2-2_categorical_data/figures/titanic_age_survival/titanic_mosaic}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_rel_seg_bar}
+\includegraphics[width=0.5\textwidth]{\chpii@path/2-2_categorical_data/figures/titanic_age_survival/titanic_mosaic}
 \end{center}
 
 \end{frame}
@@ -515,8 +519,8 @@ information, for proportions.
 \vspace{-0.5cm}
 
 \begin{center}
-%\includegraphics[width=0.4\textwidth]{2-2_categorical_data/figures/mammal_pie_chart/mammal_pie_chart}
-%\includegraphics[width=0.2\textwidth]{2-2_categorical_data/figures/mammal_pie_chart/mammal_pie_chart_legend}
+\includegraphics[width=0.4\textwidth]{\chpii@path/2-2_categorical_data/figures/mammal_pie_chart/mammal_pie_chart}
+\includegraphics[width=0.2\textwidth]{\chpii@path/2-2_categorical_data/figures/mammal_pie_chart/mammal_pie_chart_legend}
 \end{center}
 
 \ct{Data from \webURL{http://www.bucknell.edu/msw3}.}
@@ -536,7 +540,7 @@ information, for proportions.
 \dq{Does there appear to be a relationship between class year and number of clubs students are in?}
 
 \begin{center}
-%\includegraphics[width=\textwidth]{2-2_categorical_data/figures/year_clubs/year_clubs}
+\includegraphics[width=\textwidth]{\chpii@path/2-2_categorical_data/figures/year_clubs/year_clubs}
 \end{center}
 
 \end{frame}
