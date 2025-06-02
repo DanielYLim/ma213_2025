@@ -19,7 +19,7 @@
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 % Style
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
-
+\def\chp1@path{../../Chp 1}
 \input{../../lec_style.tex}
 
 
@@ -27,9 +27,10 @@
 % Preamble
 %%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%%
 
-\title[Chp 1: Intro. to data]{Chapter 1: Introduction to data}
+\title[Lecture 2]{MA213: Lecture 2}
+\subtitle{Module 1: Exploratory Data Analysis and Study Design}
 \author{OpenIntro Statistics, 4th Edition}
-\institute{$\:$ \\ {\footnotesize Slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
+\institute{$\:$ \\ {\footnotesize Based on slides developed by Mine \c{C}etinkaya-Rundel of OpenIntro. \\
 The slides may be copied, edited, and/or shared via the \webLink{http://creativecommons.org/licenses/by-sa/3.0/us/}{CC BY-SA license.} \\
 Some images may be included under fair use guidelines (educational purposes).}}
 \date{}
@@ -267,7 +268,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 \end{itemize}
 
 \begin{center}
-%\includegraphics[width=0.55\textwidth]{1-2_data_basics/figures/xkcd_correlation} \\
+\includegraphics[width=0.55\textwidth]{\chp1@path/1-2_data_basics/figures/xkcd_correlation} \\
 {\tiny \webURL{http://xkcd.com/552/}}
 \end{center}
 
@@ -311,7 +312,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 
 	\twocol{0.5}{0.5}{
 	\begin{center}
-	%\includegraphics[width=\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/1-3_sampling_principles_strategies/figures/running.png}
+	\includegraphics[width=\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/running.png}
 	\end{center}
 	\vspace{-0.5cm}
 	{\tiny \webURL{http://well.blogs.nytimes.com/2012/08/29/finding-your-ideal-running-form}}
@@ -427,8 +428,8 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 		\item \hl{Voluntary response:} Occurs when the sample consists of people who volunteer to respond because they have strong opinions on the issue. Such a sample will also not be representative of the population.
 		\pause
 		\begin{center}
-		%\includegraphics[width=0.25\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/vol_resp_bias/vol_resp_bias_q}\pause
-		%\includegraphics[width=0.25\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/vol_resp_bias/vol_resp_bias_res} \\
+		\includegraphics[width=0.25\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/vol_resp_bias/vol_resp_bias_q}\pause
+		\includegraphics[width=0.25\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/vol_resp_bias/vol_resp_bias_res} \\
 		{\tiny cnn.com, Jan 14, 2012}
 		\end{center}
 		\pause
@@ -449,11 +450,11 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 
 	\begin{columns}[c]
 		\column{0.35\textwidth}
-		%\includegraphics[width= \textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/landon_fdr/landon}
+		\includegraphics[width= \textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/landon_fdr/landon}
 		\column{0.3\textwidth}
 		In 1936, Landon sought the Republican presidential nomination opposing the re-election of FDR.
 		\column{0.35\textwidth}
-		%\includegraphics[width= \textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/landon_fdr/fdr}
+		\includegraphics[width= \textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/landon_fdr/fdr}
 	\end{columns}
 
 \end{frame}
@@ -474,7 +475,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 
 		\column{0.3\textwidth}
 
-		%\includegraphics[width= \textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/literaryDigest}
+		\includegraphics[width= \textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/literaryDigest}
 	\end{columns}
 
 	\begin{itemize}
@@ -580,7 +581,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 	Randomly select cases from the population, where there is no implied connection between the points that are selected.
 
 	\begin{center}
-	%\includegraphics[width=0.9\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/sampling_methods/simple}
+	\includegraphics[width=0.9\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/sampling_methods/simple}
 	\end{center}
 
 \end{frame}
@@ -593,7 +594,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 	\hl{Strata} are made up of similar observations. We take a simple random sample from \underline{each} stratum.
 
 	\begin{center}
-	%\includegraphics[width=0.9\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/sampling_methods/stratified}
+	\includegraphics[width=0.9\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/sampling_methods/stratified}
 	\end{center}
 
 \end{frame}
@@ -606,7 +607,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 	\hl{Clusters} are usually not made up of homogeneous observations. We take a simple random sample of clusters, and then sample \underline{all} observations in that cluster. Usually preferred for economical reasons.
 
 	\begin{center}
-	%\includegraphics[width=0.9\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/sampling_methods/cluster}
+	\includegraphics[width=0.9\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/sampling_methods/cluster}
 	\end{center}
 
 \end{frame}
@@ -619,7 +620,7 @@ explanatory variable $\xrightarrow{might~affect}$response variable
 	\hl{Clusters} are usually not made up of homogeneous observations.  We take a simple random sample of clusters, and then take a simple random sample of observations from the sampled clusters.
 
 	\begin{center}
-	%\includegraphics[width=0.9\textwidth]{../../Chp 1/1-3_sampling_principles_strategies/figures/sampling_methods/multistage}
+	\includegraphics[width=0.9\textwidth]{\chp1@path/1-3_sampling_principles_strategies/figures/sampling_methods/multistage}
 	\end{center}
 
 \end{frame}
