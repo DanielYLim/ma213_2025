@@ -3,9 +3,9 @@ title: "MA213 Basic Statistics and Probability - Lab2 Guide"
 bibliography: references.bib
 link-citations: true
 output:
-  pdf_document: default
   html_document:
     code_download: true 
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
