@@ -1,9 +1,9 @@
 ---
 title: "MA213 Basic Statistics and Probability - Lab1 Guide"
 output:
-  pdf_document: default
   html_document:
     code_download: true 
+  pdf_document: default
 ---
 
 ```{r setup, include=FALSE}
