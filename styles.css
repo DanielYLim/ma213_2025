@@ -1,0 +1,64 @@
+/* styles.css */
+
+/* Reset some default styles */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+body {
+  font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+  max-width: 700px;
+  margin: 50px auto;
+  padding: 0 20px;
+  background-color: #f0f4f8;
+  color: #222;
+  line-height: 1.6;
+  text-align: center;
+}
+
+h1 {
+  margin-bottom: 30px;
+  font-weight: 700;
+  color: #2c3e50;
+  font-size: 2.5rem;
+}
+
+a {
+  font-size: 1.3rem;
+  color: #007acc;
+  text-decoration: none;
+  border-bottom: 2px solid transparent;
+  padding-bottom: 2px;
+  transition: all 0.3s ease;
+  display: inline-block;
+
+  position: relative;
+  padding-bottom: 3px;
+}
+
+a::after {
+  content: '';
+  position: absolute;
+  left: 0;
+  bottom: 0;
+  width: 0%;
+  height: 2px;
+  background-color: #007acc;
+  transition: width 0.3s ease;
+}
+
+a:hover,
+a:focus {
+  border-color: #007acc;
+  background-color: #eaf4ff;
+  border-radius: 4px;
+  outline: none;
+  cursor: pointer;
+}
+
+a:hover::after,
+a:focus::after {
+  width: 100%;
+}
